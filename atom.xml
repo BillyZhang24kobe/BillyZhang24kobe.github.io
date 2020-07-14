@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://billyzhang24kobe.github.io</id>
     <title>Billy Zhang</title>
-    <updated>2020-07-14T07:06:02.535Z</updated>
+    <updated>2020-07-14T07:07:55.209Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://billyzhang24kobe.github.io"/>
     <link rel="self" href="https://billyzhang24kobe.github.io/atom.xml"/>
@@ -111,38 +111,6 @@
 <h3 id="关于这篇文章的个人思考和总结">关于这篇文章的个人思考和总结</h3>
 <p>下面简单对这篇文章写一些自己的想法。文章的重要贡献体现在以下几个方面：1）对不同的多模态融合的方法进行比较和分析，从训练速度和模型准确率的层面对不同的方法进行了评估，以此得出了结论：用非常简单的模态融合方法（比如：相加或者最大池化）就能高效地达到非常好的模型表现；2）对连续型模态特征进行离散化处理，以此来进一步加速和简化整个模态融合过程；3）模型学习得到的离散化的特征表示能够为文本分类任务提供一定的可解释性。我个人非常喜欢作者对连续型特征的离散化处理，这样能将一些视觉特征转化为能够输入到FastText模型中的“文本特征”，这样就能充分利用FastText的高效学习的特点。同时，这样的创新能够使得在大规模数据上进行多模态分类成为可能。当然，我觉得这篇文章也存在一定的局限性：仅仅考虑了两种模态的信息（文本和视觉）。在之后的研究中也许能加入其他模态的信息（比如：音频）来辅助该分类任务。</p>
 <p>总体来看，这篇文章对于工业界应该也可以提供非常多的启发。工业界可以提供非常多的数据，如何能有效地利用这些数据来帮助训练模型，一直是一个非常重要的问题。很多时候，工业界需要在准确度和速度上做出取舍，似乎是“鱼和熊掌不可兼得”的状态。但是这篇文章提供了一种很好的启发：如何能在保持相对高准确度的情况下还能快速训练模型。这需要对不同模态的特征进行观察和处理，选择最合理的模态融合方式。同时，对于分类任务，工业界也不能忽视可解释性带来的好处，这样才能在已有的模型架构基础上加以改进，达到更好的模型训练结果。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://billyzhang24kobe.github.io/post/hello-gridea/</id>
-        <link href="https://billyzhang24kobe.github.io/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
 ]]></content>
     </entry>
 </feed>
