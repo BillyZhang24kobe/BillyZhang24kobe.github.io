@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="referrer" content="never">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="kveln">
+  <title>总结《Generating Hierarchical Explaination on Text Classification via Feature Interaction Detection》 | Billy Zhang</title>
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="https://billyzhang24kobe.github.io/media/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--  <link href="https://billyzhang24kobe.github.io/media/css/all.min.css" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="alternate" type="application/rss+xml" title="总结《Generating Hierarchical Explaination on Text Classification via Feature Interaction Detection》 | Billy Zhang » Feed" href="https://billyzhang24kobe.github.io/atom.xml">
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
+  <link href="https://billyzhang24kobe.github.io/styles/main.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+  <!-- <script src="https://billyzhang24kobe.github.io/media/scripts/jquery.min.js"></script> -->
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+    <meta property="og:description" content="总结《Generating Hierarchical Explaination on Text Classification via Feature Interaction Detection》"/>
+    <meta property="og:url" content="https://billyzhang24kobe.github.io/post/zong-jie-lesslessgenerating-hierarchical-explaination-on-text-classification-via-feature-interaction-detectiongreatergreater/"/>
+    <meta property="og:locale" content="zh-CN"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="Billy Zhang"/>
+  </head>
+  <body>
+  	<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://billyzhang24kobe.github.io">Billy Zhang</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/">首页</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/archives">归档</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/tags">标签</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/post/about">关于</a>
+              
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://billyzhang24kobe.github.io/media/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+          	<span class="tags">
+          	 
+        </span>
+            <h1>总结《Generating Hierarchical Explaination on Text Classification via Feature Interaction Detection》</h1>
+            <span class="meta">
+            	Posted on
+              2020-07-14，8 min read
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <h3 id="文章内容简介">文章内容简介</h3>
+<p>深度学习的兴起被认为是人工智能崛起的第三次浪潮，它极大程度上推动了很多人工智能子领域的研究和进展，如：计算机视觉，自然语言处理等。然而，由于深度学习网络的架构非常的复杂，很多时候我们将其视为“Black Box（黑箱子）”。在一些任务中（如：文本分类，文本生成，图像识别等），我们已经能够训练出有着极高性能和准确度的模型。但是与此同时，这些优质模型的可解释性，一直是很多研究人员想要深入探索和学习的方向。因为只有当模型的结果具备良好的可解释性，我们才能充分地有理由依赖和信任模型的表现。</p>
+<p>本文主要探究了在NLP中的文本分类模型的可解释性问题，通过识别不同输入特征（如：单词和短语）之间的联系(Feature Interaction Detection)，建立了层次化的解释(hierarchical explaination)，以此来观测输入特征中的词和短语是如何在不同层级上进行关联的。这种层级式的可视化能够帮助用户和研究者更加清晰地理解“黑箱”模型的决策（如在文本分类任务中对于不同类别的预测）。这篇文章中作者提出的通过生成Hierarchincal Explaination的方法，为模型可解释性的研究方向提供的强有力的实践支撑，能够有效促进该研究方向的进一步探索。</p>
+<h3 id="文章内容描述">文章内容描述</h3>
+<p>本文作者以文本分类（具体来说是情感分类）为研究的主要背景，探究了如何通过识别输入特征（词语或短语）之间的关联，来解释分类器的最终表现和行为。具体来说，作者提出了一个&quot;model-agnostic（与模型无关）&quot; 的方法 -- HEDGE (Hierarchical Explaination via Divisive Generation)，通过递归地识别文本中特征词之间最弱的(weakest) 交互，然后基于此交互不断地把长文本片段分割成若干的小文本片段，构建了层级化的解释结构。如下图例子所示，HEDGE在输入的句子&quot;a waste of good performance&quot; 的基础上，生成了层级化的解释结构，并且能够在不同的层级中看出特征之间是如何进行交互的。<br>
+<img src="https://raw.githubusercontent.com/BillyZhang24kobe/PicGo/master/2-1.jpg" alt="" loading="lazy"></p>
+<p>下面，我们对文章作者提出的方法进行进一步解读。</p>
+<ul>
+<li>算法层面: 作者提出了如何构建层次化解释(Hierarchical Explaination)。该算法的具体流程如下图所示。首先，输入部分(Input)的文本 x 由 n 个单词组成，同时y^代表某个模型输出的预测label。接下来，对于一个文本序列 x，我们可以将其划分成 P 个子文本序列（注：每个子文本序列彼此独立且无交集）。紧接着，HEDGE 可以对每一个子文本序列进行操作：
+<ul>
+<li>找到分隔点 j；</li>
+<li>按照 j 对每个子文本序列进行分割。这样一来，每个子文本序列可以被进一步划分成两个更小的子文本序列；</li>
+<li>对得到的更小的子文本序列，评估其对于模型预测结果y^的贡献程度和影响(contributions)。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/BillyZhang24kobe/PicGo/master/2-2.jpg" alt="" loading="lazy"><br>
+由此算法可以看到，对于一个输入的文本序列，层级化的解释结构是通过一个自顶向下的过程来搭建的。在这个过程中，我们要回答两个问题：1）在下一个timestep，我们应该选择哪一个分割出来的文本子序列并且以此做下一步的分割？2）我们应该如何选择分隔点 j？幸运的是，这两个问题都可以通过下面的式子1来解决。这里的<img src="https://raw.githubusercontent.com/BillyZhang24kobe/PicGo/master/2-4.jpg" alt="Alt" loading="lazy">表示的是两个子文本序列之间的交互分数 (interaction score)<br>
+<img src="https://raw.githubusercontent.com/BillyZhang24kobe/PicGo/master/2-3.jpg" alt="" loading="lazy"></p>
+<p>因为我们只聚焦探讨文章作者的核心算法和思路，具体的关于该分数的计算流程请参考原文章，这里我们不做过多赘述。从式子1中我们可以看出，内层的优化目标能够帮助我们找到合适的分割点 j，外层的优化目标则能帮助我们找到在下一个timestep 选择分割的子文本序列。同时需要注意的是，当我们每次完成步骤6和7（Algorithm1）之后，我们要把生成的 P 加入到层级表示 H 中，这样每次生成的层级都能够得到保存。算法1当中，每次迭代（步骤5-9）的最后一个步骤，就是评估新得到的子文本序列对于模型预测结果的贡献，然后更新贡献集合C。具体来说，作者定义出了一个可以量化每个特征（词或短语）对于模型预测结果的贡献度的式子（见式子5）。对于该式子的解读请参照原文section 3.3。到此，在进行完所有的迭代之后，算法1能够输出两个结果：1）贡献集合C_n-1: 包含了在每一个timestep生成的子文本序列和他们的贡献分数(importance scores)；2）层级H：包含每一个timestep 对于输入文本 x 的分割。基于这两个输出结果，一个完整的层级化解释结构就能通过可视化显现出来了。<br>
+<img src="https://raw.githubusercontent.com/BillyZhang24kobe/PicGo/master/2-5.jpg" alt="" loading="lazy"></p>
+<p>接下来，让我们一起看看作者得到的实验结果。为了展示不同模型在文本分类任务中的表现，作者挑选了三个典型的神经网络模型：LSTM，CNN 和 BERT 模型。特别地，文章用到了两个经典的数据集：<a href="https://www.researchgate.net/publication/284039049_Recursive_deep_models_for_semantic_compositionality_over_a_sentiment_treebank">SST</a> 和 <a href="https://www.researchgate.net/publication/220873867_Learning_Word_Vectors_for_Sentiment_Analysis">IMDB</a>。Table 1 显示了这三个模型在不同数据集上的分类准确度。得到了初步的分类结果之后，作者对此分别进行了定量和定性的分析。</p>
+<ul>
+<li>定量分析<br>
+作者用了两个评价指标来衡量word-level 的解释：AOPC (Area Over the Perturbation Curve) 和 log-odds 分数。具体来说，AOPC越大，解释性越好；log-odds 分数越小，解释性越好。除此之外，作者还单独定义了另外的评价指标：cohesion-score，以此来评估给定子文本序列中词与词之间的交互程度。具体的分析结果如 Table 2 所示。可以看出，HEDGE 相比其他的方法要更能解释不同模型在两个数据集上的表现。<br>
+<img src="https://raw.githubusercontent.com/BillyZhang24kobe/PicGo/master/2-6.jpg" alt="" loading="lazy"><br>
+<img src="https://raw.githubusercontent.com/BillyZhang24kobe/PicGo/master/2-7.jpg" alt="" loading="lazy"></li>
+<li>定性分析<br>
+作者对于结果的定性分析主要体现在 HEDGE 相比于其他的方法，更能在词/短语层面以及它们之间的关联来进行对模型预测结果的解释。更多的对于定性分析的例子，请参照原文的附录部分.</li>
+</ul>
+<p>从结果中，我们能够看出，HEDGE 不论是从定量还是定性的分析中，都能显现出非常有效的对于文本分类模型预测行为的解释能力。</p>
+<h3 id="自己的想法">自己的想法</h3>
+<p>总体上看，这篇文章的重要贡献主要体现在以下方面：</p>
+<ul>
+<li>提出了一个自顶向下的可以通过识别特征交互，来创建层级化解释架构的方法。该方法能够对模型在任务中的表现提供合理有效的解释；</li>
+<li>提出了一个简单且有效的能够定量特征对于模型结果的贡献的计分方法；</li>
+</ul>
+<p>在行业和工业界，我觉得这篇文章能够给在探究模型可解释性的方向上提供很好的思路和启发。虽然在业界，很多时候算法工程师们不会过多地关注模型的可解释性，毕竟只要训练出来的模型能够在测试中拿到很好的成绩，就已经能够证明该模型的能力和表现，不会再深究为什么模型表现得那么好。但是反过来，一旦我们的模型表现没有达到预期，如果不对模型表现的可解释性进行探究，我们很难在现有的基础上对模型进行改进。所以我觉得，这篇文章很好的说明了可解释性对于理解模型的决策有着非常重要的作用。这不仅表现在对模型的改进上，还能让我们加深对于模型决策的自信和依赖程度。</p>
+<!-- ### 参考 -->
+
+          
+          <p class="next-post">下一篇：
+            <a href="https://billyzhang24kobe.github.io/post/dui-lesslessefficient-large-scale-multi-modal-classificationgreatergreater-de-li-jie/">
+              <span class="post-title">
+                对《Efficient Large-Scale Multi-Modal Classification》的理解&rarr;
+              </span>
+            </a>
+          </p>
+        
+        <div class="comment">
+          
+        </div>
+      </div>
+    </div>
+  </article>
+ <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+              <li class="list-inline-item">
+              <a href="https://billyzhang24kobe.github.io/atom.xml" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy;<span>Billy Zhang</span><br><a href="https://github.com/getgridea/gridea" class="Themeinfo">Powered by Gridea</a></p>
+        </div>
+      </div>
+    </div>
+   </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://billyzhang24kobe.github.io/media/scripts/bootstrap.bundle.min.js"></script> -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.jsdelivr.net/gh/Alanrk/clean-cdn@1.0/scripts/clean-blog.min.js"></script>
+  <!-- <script src="https://billyzhang24kobe.github.io/media/scripts/clean-blog.min.js"></script> -->
+  <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+  <style type="text/css">a.back_to_top{text-decoration:none;position:fixed;bottom:40px;right:30px;background:#f0f0f0;height:40px;width:40px;border-radius:50%;line-height:36px;font-size:18px;text-align:center;transition-duration:.5s;transition-propety:background-color;display:none}a.back_to_top span{color:#888}a.back_to_top:hover{cursor:pointer;background:#dfdfdf}a.back_to_top:hover span{color:#555}@media print,screen and(max-width:580px){.back_to_top{display:none!important}}</style>
+<a id="back_to_top" href="#" class="back_to_top">
+  <span>▲</span></a>
+<script>$(document).ready((function(_this) {
+    return function() {
+      var bt;
+      bt = $('#back_to_top');
+      if ($(document).width() > 480) {
+        $(window).scroll(function() {
+          var st;
+          st = $(window).scrollTop();
+          if (st > 30) {
+            return bt.css('display', 'block')
+          } else {
+            return bt.css('display', 'none')
+          }
+        });
+        return bt.click(function() {
+          $('body,html').animate({
+            scrollTop: 0
+          },
+          800);
+          return false
+        })
+      }
+    }
+  })(this));</script>
+  </body>
+</html>
+
