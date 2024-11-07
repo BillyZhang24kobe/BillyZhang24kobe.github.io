@@ -1,3 +1,4 @@
+
 /* latin-ext */
 @font-face {
   font-family: 'Lato';
@@ -81,57 +82,25 @@ tr,
 p,
 a {
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 strong {
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 h2 {
-  /* margin: 0; */
+  margin: 0;
   font-weight: normal;
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
   font-size: 22px;
-  margin-left: 20px;
 }
 
 .papertitle {
   font-family: 'Lato', Verdana, Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
-  margin-left: 20px;
-}
-
-/* Additional styles to ensure consistent formatting */
-.publication-details {
-  font-style: italic;
-  margin-left: 20px;
-  /* margin-top: 5px; */
-}
-
-.author-list {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
-  margin-left: 20px;
-}
-
-.paper-links {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
-  margin-left: 20px;
-}
-
-.publication-entry {
-  margin-bottom: 20px; /* Space between entries */
-}
-
-ul {
-  list-style-type: disc;
-  padding-left: 40px;
-}
-
-ul .publication-entry {
-  margin-bottom: 15px; /* Space between entries */
 }
 
 .name {
